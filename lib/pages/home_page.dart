@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_reader_app/models/scan_model.dart';
 import 'package:qr_reader_app/pages/map_history_page.dart';
 import 'package:qr_reader_app/pages/map_page.dart';
 import 'package:qr_reader_app/pages/websites_page.dart';
+import 'package:qr_reader_app/providers/db_provider.dart';
 import 'package:qr_reader_app/providers/ui_provider.dart';
 import 'package:qr_reader_app/widgets/custom_navigation_bar.dart';
 import 'package:qr_reader_app/widgets/scan_button.dart';
@@ -42,6 +44,10 @@ class _HomePageBody extends StatelessWidget {
 
     // Changes to show current page
     final currentIndex = uiProvider.selectedMenuOpt;
+
+    //TODO: Temprary database reading
+    // final tempScan = ScanModel(value: 'https://google.com');
+    // DBProvider.db.getScanById(4).then((scan) => print(scan!.value));
 
     switch (currentIndex) {
       case 0:
