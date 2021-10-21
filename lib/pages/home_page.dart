@@ -5,6 +5,7 @@ import 'package:qr_reader_app/pages/map_history_page.dart';
 import 'package:qr_reader_app/pages/map_page.dart';
 import 'package:qr_reader_app/pages/websites_page.dart';
 import 'package:qr_reader_app/providers/db_provider.dart';
+import 'package:qr_reader_app/providers/scan_list_provider.dart';
 import 'package:qr_reader_app/providers/ui_provider.dart';
 import 'package:qr_reader_app/widgets/custom_navigation_bar.dart';
 import 'package:qr_reader_app/widgets/scan_button.dart';
@@ -14,6 +15,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use scans provider
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -21,7 +26,9 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              scanListProvider.deleteAllScans();
+            },
             icon: const Icon(Icons.delete_forever),
           )
         ],
@@ -45,15 +52,17 @@ class _HomePageBody extends StatelessWidget {
     // Changes to show current page
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    //TODO: Temprary database reading
-    // final tempScan = ScanModel(value: 'https://google.com');
-    // DBProvider.db.getScanById(4).then((scan) => print(scan!.value));
+    // Use scans provider
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
-        return const MapPage();
+        scanListProvider.loadScansByType('geo');
+        return const MapHistoryPage();
 
       case 1:
+        scanListProvider.loadScansByType('http');
         return const WebsitesPage();
 
       default:

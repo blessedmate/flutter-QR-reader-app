@@ -20,14 +20,20 @@ class ScanListProvider extends ChangeNotifier {
 
   loadScans() async {
     final loaded = await DBProvider.db.getAllScans();
-    scans = [...loaded!];
+    if (loaded != null) {
+      scans = [...loaded];
+    }
     notifyListeners();
   }
 
   loadScansByType(String type) async {
     final loaded = await DBProvider.db.getAllScansByType(type);
-    scans = [...loaded!];
     selectedType = type;
+    if (loaded != null) {
+      scans = [...loaded];
+    } else {
+      scans = [];
+    }
     notifyListeners();
   }
 
