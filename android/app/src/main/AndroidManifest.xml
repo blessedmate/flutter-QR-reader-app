@@ -1,8 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.qr_reader_app">
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW"></action>
+      <category android:name="android.intent.category.BROWSABLE"></category>
+      <data android:scheme="https"></data>
+    </intent>
+  </queries>
    <application
         android:label="qr_reader_app"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAy5bi_g46mKrjP_AOeaiN_aQ1Bh9Bl7-Y"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
